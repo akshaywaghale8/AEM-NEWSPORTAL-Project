@@ -1,12 +1,4 @@
-<div data-sly-use.articleModel="com.bhasaka.newsportal.core.models.ArticleDetailsModel" />
 
-<div data-sly-test="${!articleModel.articleIsExpiry}">
-    <h1>${articleModel.articleTitle}</h1>
-    <div>${articleModel.articleDesc}</div>
-    <img data-sly-test="${articleModel.articleImage}" src="${articleModel.articleImage}" />
-</div>
-
-
-<div data-sly-test="${articleModel.articleIsExpiry}">
-    <h1>This Article is Expired</h1>
-</div>
+    <h1>${properties.articleTitle}</h1>
+    <div>${properties.articleDesc}</div>
+    <img data-sly-test="${properties.articleImage}" src="${properties.articleImage}" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
     jcr:primaryType="nt:unstructured"
     jcr:title="Article Details"
     sling:resourceType="cq/gui/components/authoring/dialog">
@@ -172,67 +172,6 @@
                     </cui>
                 </uiSettings>
             </article-text>
-            <featuredimage
-                granite:class="cmp-image__editor"
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Featured Image"
-                sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
-                <items jcr:primaryType="nt:unstructured">
-                    <file
-                        granite:class="cmp-image__editor-file-upload"
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="cq/gui/components/authoring/dialog/fileupload"
-                        allowDrop="{Boolean}false"
-                        allowUpload="{Boolean}true"
-                        class="cq-droptarget"
-                        fieldDescription="Used in components referencing the page (e.g. teaser, list of pages)"
-                        fieldLabel="Image"
-                        fileNameParameter="./cq:featuredimage/fileName"
-                        fileReferenceParameter="./cq:featuredimage/fileReference"
-                        mimeTypes="[image/gif,image/jpeg,image/png,image/tiff,image/svg+xml]"
-                        name="./cq:featuredimage/file">
-                        <granite:data
-                            jcr:primaryType="nt:unstructured"
-                            cq-msm-lockable="/cq:featuredimage"/>
-                    </file>
-                    <type
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
-                        name="./cq:featuredimage/sling:resourceType"
-                        value="core/wcm/components/image/v3/image"/>
-                    <alternativeGroup
-                        granite:class="cmp-image__editor-alt"
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/well">
-                        <items jcr:primaryType="nt:unstructured">
-                            <alt
-                                granite:class="cmp-image__editor-alt-text"
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldDescription="Textual alternative of the meaning or function of the image, for visually impaired readers."
-                                fieldLabel="Alternative Text"
-                                name="./cq:featuredimage/alt">
-                                <granite:data
-                                    jcr:primaryType="nt:unstructured"
-                                    cq-msm-lockable="/cq:featuredimage"/>
-                            </alt>
-                            <altValueFromDAM
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
-                                checked="true"
-                                fieldDescription="When checked, populate the image's alt attribute with the value of the dc:description metadata in DAM."
-                                name="./cq:featuredimage/altValueFromDAM"
-                                text="Inherit - Value taken from the DAM asset"
-                                uncheckedValue="false"
-                                value="{Boolean}true">
-                                <granite:data
-                                    jcr:primaryType="nt:unstructured"
-                                    cq-msm-lockable="/cq:featuredimage"/>
-                            </altValueFromDAM>
-                        </items>
-                    </alternativeGroup>
-                </items>
-            </featuredimage>
         </items>
     </content>
 </jcr:root>

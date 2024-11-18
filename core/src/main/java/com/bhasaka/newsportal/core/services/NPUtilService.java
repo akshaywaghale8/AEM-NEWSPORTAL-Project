@@ -17,7 +17,7 @@ public class NPUtilService {
     public ResourceResolver getResourceResolver(){
         ResourceResolver resolver=null;
         Map<String,Object> props=new HashMap<>();
-        props.put(ResourceResolverFactory.SUBSERVICE,"npsubservice");
+        props.put(ResourceResolverFactory.SUBSERVICE,"npSubService");
         try {
             resolver=factory.getServiceResourceResolver(props);
         } catch (LoginException e) {
