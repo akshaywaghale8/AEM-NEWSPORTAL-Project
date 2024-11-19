@@ -8,7 +8,7 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
-import org.apache.sling.api.resource.Resource;
+
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Component(service = Servlet.class)
 @SlingServletPaths("/bin/newsportal/service/xpath")
@@ -35,7 +36,7 @@ public class XpathQuerySearch extends SlingSafeMethodsServlet
     QueryBuilder queryBuilder;
 
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException
+    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws  IOException
     {
         ResourceResolver resourceResolver = request.getResourceResolver();
 
@@ -61,7 +62,7 @@ public class XpathQuerySearch extends SlingSafeMethodsServlet
                 Page page  = hit.getResource().adaptTo(Page.class);
                 JsonObjectBuilder jsonPage = Json.createObjectBuilder();
 
-                jsonPage.add("Title", page.getTitle());
+                jsonPage.add("Title", Objects.requireNonNull(page).getTitle());
                 jsonPage.add("Path", page.getPath());
 
                 jsonPageArray.add(jsonPage);

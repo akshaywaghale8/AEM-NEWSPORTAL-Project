@@ -1,13 +1,15 @@
 package com.bhasaka.newsportal.core.models;
 
+import com.bhasaka.newsportal.core.services.ServiceResourceResolver;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.SlingObject;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,14 +30,14 @@ import java.util.Map;
 @Model(
         adaptables = {Resource.class, SlingHttpServletRequest.class},
         resourceType = "newsportal/components/studentstiker",
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
+        defaultInjectionStrategy = DefaultInjectionStrategy.REQUIRED
 )
 public class StudentModel {
 
     private static final Logger log = LoggerFactory.getLogger(StudentModel.class);
 
-    @SlingObject
-    private ResourceResolver resourceResolver;
+    @Reference
+    private ServiceResourceResolver serviceResourceResolver;
 
     @ValueMapValue
     private String studentName;
@@ -50,10 +52,12 @@ public class StudentModel {
 
     @PostConstruct
     public void init() {
+        ResourceResolver resourceResolver = null;
         try {
-            // Check for a valid ResourceResolver
+            // Obtain ResourceResolver from the service
+            resourceResolver = serviceResourceResolver.getResourceResolver();
             if (resourceResolver == null) {
-                log.error("ResourceResolver is null. Ensure it is properly injected.");
+                log.error("ServiceResourceResolver returned a null ResourceResolver.");
                 return;
             }
 
@@ -133,6 +137,10 @@ public class StudentModel {
             log.error("RepositoryException occurred while saving the image: ", e);
         } catch (Exception e) {
             log.error("Unexpected error occurred: ", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
     }
 
@@ -142,5 +150,13 @@ public class StudentModel {
 
     public String getNewImagePath() {
         return newImagePath;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
     }
 }
